@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+
 
 /**
  * TODO class details.
@@ -32,7 +32,13 @@ public class UsersController {
    * @return
    */
 
-  @GetMapping("/users")
+  @GetMapping("/index")
+  public String index (Model model)
+  {
+    return "index";
+  }
+
+  @GetMapping("/users-list")
   public  String getUsers (Model model) {
     model.addAttribute("data", userDao.findAll());
     return "users-list";
@@ -42,27 +48,18 @@ public class UsersController {
   public String addUsersPage (Model model) {
     User usr = new User();
     model.addAttribute(usr);
-    return "add_member";
+    return "user";
   }
 
   @PostMapping("user")
   public String addUsers (Model model, User usr){
     userDao.save(usr);
-
-    return "redirect:/users";
+    return "redirect:/index";
   }
 
-  @GetMapping("/index")
-          public String index (Model model)
-  {
 
-    return "index";
-  }
 
-  /*@PostMapping("index")
-    public String sendAddPromo (Model model)
-  {
 
-  }*/
+
   
 }
